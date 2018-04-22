@@ -17,13 +17,26 @@ class URLComparator implements Comparator<WebPageIndex> {
    }
    
    public int score(WebPageIndex idx){
-      //TODO:  Write this method
-      return 0;
+	   
+	   // Adds getCount for each word in the query then add them all together in the 
+	   //score variable.
+	   
+	  int score = 0;
+	  
+      for (String word : query) {
+    	  int currentWordCount = idx.getCount(word);
+    	  score += currentWordCount;
+      }
+      
+      return score;
    }
       
     public int compare(WebPageIndex idx1, WebPageIndex idx2){ 
-       //TODO:  Write this method
-       return 0;
+       
+    	int score1 = score(idx1);
+    	int score2 = score(idx2);
+    	
+    	return score1 - score2;
     }
 
 }
