@@ -29,7 +29,8 @@ class MyPriorityQueue<E> implements PriorityQueueADT<E> {
 	heap.set(0, heap.get(size() - 1)); // set root item as rightmost node item
 	heap.set(heap.size() - 1, rvalue); // set rightmost node item as root item
 	heap.remove(heap.size() - 1); // remove the rightmost node; removing at root will destroy the heap structure
-	siftDown(0);
+	// @@@@@ added if block here.
+	if (heap.size() > 0) siftDown(0);
 	return rvalue;
     }
 
