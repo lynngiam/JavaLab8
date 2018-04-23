@@ -16,7 +16,7 @@ class URLComparator implements Comparator<WebPageIndex> {
       this.query = query;
    }
    
-   public int score(WebPageIndex idx){
+    public int score(WebPageIndex idx){
 	   
 	   // Adds getCount for each word in the query then add them all together in the 
 	   //score variable.
@@ -24,8 +24,10 @@ class URLComparator implements Comparator<WebPageIndex> {
 	  int score = 0;
 	  
       for (String word : query) {
-    	  int currentWordCount = idx.getCount(word);
-    	  score += currentWordCount;
+    	  int currentCount;
+    	  if (!word.contains(" ")) currentCount = idx.getCount(word);
+    	  else currentCount = idx.getPhraseCount(word);
+    	  score += currentCount;
       }
       
       return score;
