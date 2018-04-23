@@ -43,7 +43,7 @@ public class ProcessQueries {
 		for (int i = 0; i < count; i++) {
 		    WebPageIndex currentURL = Q.remove();
 		    System.out.println(
-			    "(score: " + ((URLComparator) Q.comparator).score(currentURL) + ") " + currentURL.getUrl());
+			    "(score: " + comparator.score(currentURL) + ") " + currentURL.getUrl());
 		}
 
 	    } else {
