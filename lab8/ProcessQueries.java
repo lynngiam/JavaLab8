@@ -28,10 +28,28 @@ public class ProcessQueries {
 	while (queriesContent.length() != 0) {
 	    // this adds one line of query into a list
 	    List<String> queriesList = new ArrayList<String>();
-	    //@@@@@ have to break the line down into many words
+	    // @@@@@ have to break the line down into many words
 	    Scanner s1 = new Scanner(queriesContent);
-	    while (s1.hasNext()) queriesList.add(s1.next().toLowerCase()); // check if lowercase function works
-	    
+	    String phrase = "";
+	    while (s1.hasNext()) {
+		String r = s1.next().toLowerCase();
+		if (r.startsWith("\"")) { // this identifies phrases
+		    phrase = r.replace("\"", "");
+		    while (s1.hasNext()) {
+			r = s1.next().toLowerCase();
+			if (!r.endsWith("\"")) {
+			    phrase += " " + r;
+			} else {
+			    phrase += " " + r.replace("\"", "");
+			    queriesList.add(phrase);
+			    break;
+			}
+		    }
+		} else {
+		    queriesList.add(r);
+		}
+	    }
+
 	    URLComparator comparator = new URLComparator(queriesList);
 	    MyPriorityQueue<WebPageIndex> Q = new MyPriorityQueue<WebPageIndex>(comparator);
 	    for (WebPageIndex x : URLs) {
@@ -42,25 +60,24 @@ public class ProcessQueries {
 		int count = Integer.parseInt(args[1]);
 		for (int i = 0; i < count; i++) {
 		    WebPageIndex currentURL = Q.remove();
-		    System.out.println(
-			    "(score: " + comparator.score(currentURL) + ") " + currentURL.getUrl());
+		    System.out.println("(score: " + comparator.score(currentURL) + ") " + currentURL.getUrl());
 		}
 
 	    } else {
-	    	//Added this line so that for loop has fixed iteration number.
-	    	int qSize = Q.size();
+		// Added this line so that for loop has fixed iteration number.
+		int qSize = Q.size();
 		for (int i = 0; i < qSize; i++) {
 		    WebPageIndex currentURL = Q.remove();
 		    System.out.println(
-		    		//@@@@@ Made this look more readable.
+			    // @@@@@ Made this look more readable.
 			    "(score: " + comparator.score(currentURL) + ") " + currentURL.getUrl());
 		}
 	    }
 	    System.out.print("Enter a query: ");
-		queriesContent = queries.nextLine();		
+	    queriesContent = queries.nextLine();
 	}
 
-	System.out.print("Thank you for using our Process Queries program!");
+	System.out.println("Thank you for using our Process Queries program!");
     }
 
 }
