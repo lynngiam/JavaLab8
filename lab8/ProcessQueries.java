@@ -24,11 +24,12 @@ public class ProcessQueries {
 
 	System.out.print("Enter a query: ");
 	Scanner queries = new Scanner(System.in);
-	while (queries.hasNext()) {
+	String queriesContent = queries.nextLine();
+	while (queriesContent.length() != 0) {
 	    // this adds one line of query into a list
 	    List<String> queriesList = new ArrayList<String>();
 	    //@@@@@ have to break the line down into many words
-	    Scanner s1 = new Scanner(queries.nextLine());
+	    Scanner s1 = new Scanner(queriesContent);
 	    while (s1.hasNext()) queriesList.add(s1.next().toLowerCase()); // check if lowercase function works
 	    
 	    URLComparator comparator = new URLComparator(queriesList);
@@ -36,7 +37,7 @@ public class ProcessQueries {
 	    for (WebPageIndex x : URLs) {
 		Q.add(x);
 	    }
-	    // this prints the results based on user specified count
+	    // this prints the results based on user specified count (args[1]).
 	    if (args.length == 2) {
 		int count = Integer.parseInt(args[1]);
 		for (int i = 0; i < count; i++) {
@@ -56,6 +57,7 @@ public class ProcessQueries {
 		}
 	    }
 	    System.out.print("Enter a query: ");
+		queriesContent = queries.nextLine();		
 	}
 
 	System.out.print("Thank you for using our Process Queries program!");
