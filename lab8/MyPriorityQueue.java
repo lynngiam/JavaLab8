@@ -30,7 +30,8 @@ class MyPriorityQueue<E> implements PriorityQueueADT<E> {
 	heap.set(heap.size() - 1, rvalue); // set rightmost node item as root item
 	heap.remove(heap.size() - 1); // remove the rightmost node; removing at root will destroy the heap structure
 	// @@@@@ added if block here.
-	if (heap.size() > 0) siftDown(0);
+	if (heap.size() > 0)
+	    siftDown(0);
 	return rvalue;
     }
 
@@ -57,7 +58,7 @@ class MyPriorityQueue<E> implements PriorityQueueADT<E> {
     private void siftUp(int pos) {
 	// TODO: Write this method
 	E lowestNode = heap.get(pos);
-	if (comparator.compare(lowestNode, heap.get(0)) != 0) { // if the lowest node is not the root
+	if (pos != 0) { // if the lowest node is not the root
 	    if (comparator.compare(lowestNode, heap.get(parent(pos))) > 0) { // if the lowest node item is larger than
 									     // its parent
 		heap.set(pos, heap.get(parent(pos)));
